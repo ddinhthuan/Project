@@ -3,11 +3,12 @@
         <!-- Kiểm tra xem có sử dụng dropdown không -->
         <% if (showDropdown) { %>
             <span class="navbar-brand mb-0 h4 nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                <%= navbarTitle || "For you" %>
+                <%= navbarTitle || "Activity" %>
             </span>
             <div class="dropdown-menu dropdown-menu-center">
-                <a class="dropdown-item" href="#">Follow</a>
-                <a class="dropdown-item" href="#">Another action</a>
+                <% (dropdownOptions || []).forEach(option => { %>
+                    <a class="dropdown-item <%= option.active ? 'active' : '' %>" href="<%= option.href %>"><%= option.label %></a>
+                <% }); %>
             </div>
         <% } else { %>
             <!-- Nếu không có dropdown, hiển thị tiêu đề đơn giản -->

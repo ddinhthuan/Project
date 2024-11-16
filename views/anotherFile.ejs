@@ -12,6 +12,7 @@
     <link href="css/style.css" rel="stylesheet">
     <link href="css/modal.css" rel="stylesheet">
     <link href="css/navbar_sidebar.css" rel="stylesheet">
+    <!-- các file css cho từng trang thì mn add thêm vào nha, nhớ đừng css chung 1 file bự, làm file nào css file đó, đỡ rối mắt -->
 </head>
 
 <body>
@@ -19,14 +20,7 @@
     <%- include('partials/sidebar') %>
 
     <div class="content-wrapper">
-        <%- include('partials/navbar', { 
-            showDropdown: true, 
-            navbarTitle: "For you", 
-            dropdownOptions: [
-                { href: "#", label: "Follow", active: false },
-            ] 
-        }) %>
-        
+        <%- include('partials/navbar', { showDropdown: true, navbarTitle: "For you" }) %>
     </div>
     
 
@@ -38,30 +32,7 @@
         </div>
 
         <div class="post-feed">
-            <% posts.forEach(post => { %>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <div class="avatar">
-                                <img src="icons/profile.svg" alt="Profile Icon">    
-                            </div>
-                            <div class="ml-2">
-                                <h5 class="card-title mb-0" style="color: #333;"><%= post.username %></h5>
-                                <small class="text-muted">3h ago</small>
-                            </div>
-                        </div>
-                        <p class="card-text"><%= post.content %></p>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <i class="bi bi-heart mr-2"></i><span>7</span>
-                                <i class="bi bi-chat mr-2"></i><span>3</span>
-                                <i class="bi bi-share"></i>
-                            </div>
-                            <i class="bi bi-three-dots"></i>
-                        </div>
-                    </div>
-                </div>
-            <% }); %>
+            <!-- mọi thứ sẽ nằm trong thẻ này, đừng cố đổi cấu trúc bên ngoài -->
         </div>
     </main>
     <%- include('partials/modal', {

@@ -19,7 +19,20 @@
     <%- include('partials/sidebar') %>
 
     <div class="content-wrapper">
-        <%- include('partials/navbar', { showDropdown: false, navbarTitle: "Activity" }) %>
+        <%- include('partials/navbar', { 
+            showDropdown: true, 
+            navbarTitle: "Activity", 
+            dropdownOptions: [
+                { href: "#", label: "All", active: true },
+                { href: "#", label: "Follows" },
+                { href: "#", label: "Replies" },
+                { href: "#", label: "Mentions" },
+                { href: "#", label: "Quotes" },
+                { href: "#", label: "Reposts" },
+                { href: "#", label: "Verified" }
+            ] 
+        }) %>
+        
     </div>
     
 
@@ -31,7 +44,9 @@
         </div>
 
         <div class="post-feed">
-            
+            <div class="activity-list"></div>  
+
+ 
         </div>
     </main>
     <%- include('partials/modal', {
