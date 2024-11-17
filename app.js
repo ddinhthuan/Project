@@ -11,6 +11,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Route chính
 app.get('/', (req, res) => {
+    res.render('login'); // Hiển thị file login.ejs
+});
+app.get('/forgotPassWord', (req, res) => {
+    res.render('forgotPassWord');
+});
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+app.get('/home', (req, res) => {
     const posts = [
         { username: "user1", content: "Hello Threads!" },
         { username: "user2", content: "Another day, another post!" },
@@ -69,6 +78,18 @@ app.get('/profile', (req, res) => {
 
 app.get('/thread', (req, res) => {
     res.render('thread');
+});
+
+app.get('/login', (req, res) => {
+    res.render('login');
+});
+
+app.get('/register', (req, res) => {
+    res.render('register');
+});
+
+app.get('/forgotPassWord', (req, res) => {
+    res.render('forgotPassWord');
 });
 
 const PORT = process.env.PORT || 3000;

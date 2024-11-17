@@ -81,4 +81,4 @@ for (let i = 0; i < 10; i++) {
     `;
     // Thêm card vào activityList
     activityList.innerHTML += cardHTML;
-}
+}   
