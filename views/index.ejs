@@ -40,9 +40,9 @@
 
         <div class="post-feed">
             <% posts.forEach(post => { %>
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
+                <div class="card" onclick="window.location.href='/thread';" style="cursor: pointer;">
+                    <div class="card-body" href="/thread">
+                        <div class="d-flex align-items-center mb-2" >
                             <a class="avatar" href="/thread">
                                 <img src="icons/profile.svg" alt="Profile Icon">    
                             </a>
