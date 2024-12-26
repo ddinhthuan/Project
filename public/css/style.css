@@ -1,6 +1,6 @@
 /* Toàn bộ trang */
 body {
-    background-color: #ffffff;
+    background-color: rgba(250, 250, 250, 1);
     color: #333;
 }
 
@@ -43,12 +43,12 @@ p .plus-button{
     color: #000000;
     margin-bottom: 10px;
     border-bottom: 1px solid #ddd;
-    border-radius: 0;   
+    border-radius: 1rem;   
 }
 
 .post-feed .card-body {
     padding: 1rem;
-    border-bottom: 1px solid #e2dcdc;
+
 }
 
 .post-feed .card:last-child {
@@ -70,3 +70,25 @@ p .plus-button{
     border-left: 2px solid #333; /* Tạo đường viền để phân biệt */
     padding-left: 15px;
 }
+
+.post-item {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+  
+.like-icon {
+    transition: opacity 0.2s ease-in-out;
+}
+  
+.like-icon.liked {
+    opacity: 1;
+}
+  
+#commentModal .media img {
+    width: 40px;
+    height: 40px;
+}
+  
