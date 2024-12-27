@@ -778,9 +778,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   notificationItems.forEach(item => {
     item.addEventListener('click', function (e) {
-      e.preventDefault();
-
       const notificationId = this.dataset.notificationId;
+
+      // Kiểm tra nếu phần tử được nhấp là một thẻ <a> hoặc nằm trong một thẻ <a>
+      const isLinkClick = e.target.tagName.toLowerCase() === 'a' || e.target.closest('a');
+
+      if (isLinkClick) {
+        // Sử dụng navigator.sendBeacon để gửi mark as read
+        if (navigator.sendBeacon) {
+          // Bạn có thể gửi một Blob hoặc đơn giản là một chuỗi rỗng
+          const data = JSON.stringify({}); // Hoặc gửi dữ liệu cần thiết
+          const blob = new Blob([data], { type: 'application/json' });
+          navigator.sendBeacon(`/notifications/mark-as-read/${notificationId}`, blob);
+        } else {
+          // Fallback nếu trình duyệt không hỗ trợ sendBeacon
+          fetch(`/notifications/mark-as-read/${notificationId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({})
+          }).catch(err => {
+            console.error('Error:', err);
+          });
+        }
+        // Cho phép sự kiện chuyển hướng xảy ra
+        return;
+      }
+
+      // Nếu không phải là thẻ <a>, ngăn chặn sự kiện và đánh dấu đã đọc
+      e.preventDefault();
 
       // Gửi AJAX request để đánh dấu thông báo là đã đọc
       fetch(`/notifications/mark-as-read/${notificationId}`, {
@@ -807,6 +832,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+
 
 $(document).on('click', '.repost-button', function (e) {
   e.preventDefault();

@@ -6,7 +6,7 @@ const Notification = require('../models/notificationModel');
 const Comment = require('../models/commentModels')
 const { authenticateToken } = require("../middleware/token"); // Import middleware
 const { avatarUpload } = require("../middleware/upload"); // Import middleware avatarUpload
-
+const mongoose = require('mongoose');
 
 router.post(
   "/edit-profile",
@@ -136,6 +136,11 @@ router.post('/notifications/mark-as-read/:id', authenticateToken(true), async (r
   try {
     const notificationId = req.params.id; // Lấy ID từ URL
     const userId = req.user._id; // Lấy ID của người dùng hiện tại
+
+    // Kiểm tra xem notificationId có phải là ObjectId hợp lệ không
+    if (!mongoose.Types.ObjectId.isValid(notificationId)) {
+      return res.status(400).json({ error: "Invalid notification ID" });
+    }
 
     const notification = await Notification.findOneAndUpdate(
       { _id: notificationId, user: userId }, // Kiểm tra quyền sở hữu thông báo

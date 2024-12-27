@@ -32,11 +32,11 @@
                 <% posts.forEach(post => { %>
                     <% if (post.author) { %> <!-- Kiểm tra nếu `post.author` tồn tại -->
                         <div class="card mb-3" data-post-id="<%= post._id %>">
-                            <div class="card-body">
-                                <div class="card-info d-flex align-items-center mb-2">
+                            <div class="card-body" data-post-id="<%= post._id %>">
+                                <div class="card-info d-flex align-items-center mb-2" data-post-id="<%= post._id %>">
                                     <!-- Hiển thị ảnh đại diện người dùng -->
                                     <a class="avatar" href="/profile/<%= post.author._id %>">
-                                        <img src="<%= post.author.avatar %>" 
+                                        <img src="<%= post.author.avatar || '/icons/profile.svg' %>" 
                                              onerror="this.onerror=null;this.src='/icons/profile.svg';" 
                                              alt="Avatar" class="rounded-circle" 
                                              style="width: 40px; height: 40px; margin-right: 2rem;">   
@@ -141,7 +141,7 @@
                                                  style="width: 20px; height: 20px;">
                                             <span class="like-count"><%= post.likes.length %></span>
                                         </button>
-            
+                
                                         <button class="btn btn-link comment-button" data-toggle="modal" data-target="#commentModal" data-post-id="<%= post._id %>">
                                             <img src="/icons/comment_1.svg" 
                                                  alt="Comment" 
@@ -149,7 +149,7 @@
                                                  style="width: 20px; height: 20px;">
                                             <span class="comment-count"><%= post.comments.length %></span>
                                         </button>
-            
+                
                                         <button class="btn btn-link repost-button" data-post-id="<%= post._id %>">
                                             <img src="/icons/rePost.svg" alt="Repost" style="width: 20px; height: 20px;">
                                             <span class="repost-count"><%= post.reposts ? post.reposts.length : 0 %></span>

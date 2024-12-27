@@ -197,7 +197,7 @@ router.get("/api/post/:postId", authenticateToken(true), async (req, res) => {
 router.get("/post/:postId", authenticateToken(true), async (req, res) => {
   try {
     const { postId } = req.params;
-
+    console.log(postId);
     // Populate bài viết và tác giả
     const post = await Post.findById(postId)
       .populate("author", "username avatar")

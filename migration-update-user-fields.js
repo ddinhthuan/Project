@@ -1,26 +1,30 @@
 const mongoose = require('mongoose');
-const Comment = require('./models/commentModels'); // Đảm bảo rằng bạn import đúng schema User
-const Post = require('./models/postModels');
-const User = require('./models/notificationModel');
-mongoose.connect('mongodb+srv://PTUDW:se7AeECrLmX6FjwW@ptudw.7otyu.mongodb.net', { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(async () => {
-    console.log('Starting migration...');
+const Post = require('./models/postModels'); // Đảm bảo đường dẫn đúng tới model Post
 
-    // Lấy tất cả người dùng trong cơ sở dữ liệu
-    const users = await User.find();
-    
-    // Cập nhật mỗi người dùng
-    for (let user of users) {
-      // Kiểm tra và khởi tạo các trường nếu chưa có
-      if (!user.isRead || user.isRead === true) user.isRead = false;
-      // Lưu lại sau khi cập nhật
-      await user.save();
+mongoose.connect('mongodb+srv://PTUDW:se7AeECrLmX6FjwW@ptudw.7otyu.mongodb.net/', { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(async () => {
+    console.log('Connected to MongoDB');
+
+    // Tìm các bài viết repost có originalPost là chuỗi "null"
+    const invalidReposts = await Post.find({ originalPost: 'null' });
+
+    if (invalidReposts.length > 0) {
+      console.log(`Found ${invalidReposts.length} invalid reposts. Fixing...`);
+
+      for (const repost of invalidReposts) {
+        // Giả sử bạn muốn đặt originalPost bằng chính _id của repost nếu không có originalPost hợp lệ
+        repost.originalPost = repost._id;
+        await repost.save();
+        console.log(`Fixed repost with ID: ${repost._id}`);
+      }
+
+      console.log('All invalid reposts have been fixed.');
+    } else {
+      console.log('No invalid reposts found.');
     }
 
-    console.log('Migration completed successfully!');
-    mongoose.connection.close(); // Đóng kết nối sau khi hoàn tất
-  })
-  .catch((error) => {
-    console.error('Migration failed:', error);
     mongoose.connection.close();
+  })
+  .catch(err => {
+    console.error('Error connecting to MongoDB:', err);
   });
